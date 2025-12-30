@@ -1,0 +1,201 @@
+/* ---------- CONTENEDOR ---------- */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+
+  /* Bosque mágico claro */
+  background: linear-gradient(180deg, #e9f5ef, #f7fbf9);
+}
+
+/* ---------- TÍTULO ---------- */
+.page-title {
+  font-size: 2.6rem;
+  color: #1f4d3a;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- TEXTO BASE ---------- */
+.page-text {
+  font-size: 1.4rem;
+  color: #2f5f4a;
+  margin: 1.5rem 0;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+.page-button {
+  margin-top: 1.5rem;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+
+  background: #bff3da;
+  color: #1f4d3a;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #a7ebcc;
+  box-shadow: 0 0 14px rgba(167, 235, 204, 0.9);
+}
+
+.page-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- APARICIÓN SUAVE ---------- */
+.fade-text {
+  animation: fadeIn 0.45s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- TEXTO TENUE / RITUAL ---------- */
+.subtle {
+  opacity: 0.45;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* ---------- TEXTO DE CIERRE ---------- */
+.muted {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ---------- PULSO ÚNICO ---------- */
+@keyframes pulse {
+  0% { opacity: 0.35; }
+  50% { opacity: 0.65; }
+  100% { opacity: 0.35; }
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+.back-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+
+  background: transparent;
+  border: none;
+
+  font-size: 0.9rem;
+  color: #2f5f4a;
+
+  cursor: pointer;
+  opacity: 0.75;
+
+  transition: opacity 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.back-btn:hover {
+  opacity: 1;
+  transform: translateX(-2px);
+  text-shadow: 0 0 8px rgba(191, 243, 218, 0.9);
+}
+
+/* ---------- DARK MODE ---------- */
+@media (prefers-color-scheme: dark) {
+  .page-container {
+    background: linear-gradient(180deg, #0f1f1a, #162b24);
+  }
+
+  .page-title {
+    color: #bff3da;
+  }
+
+  .page-text {
+    color: #d7f5ea;
+  }
+
+  .page-button {
+    background: #1f4d3a;
+    color: #e9f5ef;
+  }
+
+  .page-button:hover:not(:disabled) {
+    background: #2f6a54;
+  }
+
+  .back-btn {
+    color: #bff3da;
+  }
+}
+/* ---------- TREBOL ---------- */
+.clover-container {
+  margin-top: 1.5rem;
+  text-align: center;
+  animation: cloverAppear 0.8s ease-out;
+}
+
+.clover-img {
+  width: 120px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* efectos por rareza */
+.clover-3 {
+  filter: drop-shadow(0 0 6px rgba(80, 160, 100, 0.6));
+}
+
+.clover-4 {
+  filter: drop-shadow(0 0 10px rgba(120, 200, 160, 0.8));
+}
+
+.clover-5 {
+  filter: drop-shadow(0 0 18px rgba(180, 255, 220, 1));
+  animation: float 2.2s ease-in-out infinite, glow 1.5s ease-in-out infinite;
+}
+
+.clover-text {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* animaciones */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes cloverAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+    
