@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getRandomByCategory } from '../api/frasesApi'
 import { getDailyContent } from '../utils/dailyContent'
 import '../styles/pageLayout.css'
 
@@ -20,14 +21,9 @@ export default function Lucky() {
   const cargar = async () => {
     setLoading(true)
 
-    const result = await getDailyContent(config, async () => {
-      const res = await fetch('/api/lucky')
-      const data = await res.json()
-
-      return {
-        message: data[0]?.texto ?? 'Las hojas guardan silencio…',
-      }
-    })
+    const result = await getDailyContent(config, () =>
+      getRandomByCategory('lucky')
+    )
 
     if (result.locked) {
       setTexto(result.message || null)
@@ -36,7 +32,7 @@ export default function Lucky() {
     } else {
       setTexto(result.data?.message || null)
       setLocked(false)
-      setJustLocked(true)
+      setJustLocked(true) // aparece desde el primer mensaje
     }
 
     setLoading(false)
@@ -44,7 +40,11 @@ export default function Lucky() {
 
   useEffect(() => {
     setTexto('Un duende leyó las hojas…')
-    const timer = setTimeout(cargar, 2500)
+
+    const timer = setTimeout(() => {
+      cargar()
+    }, 2500)
+
     return () => clearTimeout(timer)
   }, [])
 
@@ -53,7 +53,11 @@ export default function Lucky() {
       <h1 className="page-title">Augurios</h1>
 
       {texto && (
-        <p className={`page-text fade-text ${loading ? 'subtle' : locked ? 'muted' : ''}`}>
+        <p
+          className={`page-text fade-text ${
+            loading ? 'subtle' : locked ? 'muted' : ''
+          }`}
+        >
           {texto}
         </p>
       )}
