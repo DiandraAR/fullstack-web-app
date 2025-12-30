@@ -32,7 +32,7 @@ export default function Naughty() {
     } else {
       setTexto(result.data?.message || null)
       setLocked(false)
-      setJustLocked(true) // 👈 aparece desde el primero
+      setJustLocked(true) // aparece desde el primero
     }
 
     setLoading(false)

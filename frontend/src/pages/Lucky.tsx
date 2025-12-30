@@ -32,7 +32,7 @@ export default function Lucky() {
     } else {
       setTexto(result.data?.message || null)
       setLocked(false)
-      setJustLocked(true) // 👈 aparece desde el primer mensaje
+      setJustLocked(true) // aparece desde el primer mensaje
     }
 
     setLoading(false)
