@@ -9,7 +9,6 @@ export default function Lucky() {
 
   const [texto, setTexto] = useState<string | null>(null)
   const [locked, setLocked] = useState(false)
-  const [justLocked, setJustLocked] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const config = {
@@ -28,11 +27,9 @@ export default function Lucky() {
     if (result.locked) {
       setTexto(result.message || null)
       setLocked(true)
-      setJustLocked(true)
     } else {
       setTexto(result.data?.message || null)
       setLocked(false)
-      setJustLocked(true) // aparece desde el primer mensaje
     }
 
     setLoading(false)
@@ -62,20 +59,20 @@ export default function Lucky() {
         </p>
       )}
 
-      {justLocked && (
-        <button className="back-btn" onClick={() => navigate('/')}>
-          ← Volver
-        </button>
-      )}
-
       {!locked && !loading && (
         <button className="page-button" onClick={cargar}>
           Otra señal
         </button>
       )}
+
+      
+      <button className="back-btn" onClick={() => navigate('/')}>
+        ← Volver
+      </button>
     </div>
   )
 }
+
 
 
 

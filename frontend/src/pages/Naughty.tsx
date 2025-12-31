@@ -9,7 +9,6 @@ export default function Naughty() {
 
   const [texto, setTexto] = useState<string | null>(null)
   const [locked, setLocked] = useState(false)
-  const [justLocked, setJustLocked] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const config = {
@@ -28,11 +27,9 @@ export default function Naughty() {
     if (result.locked) {
       setTexto(result.message || null)
       setLocked(true)
-      setJustLocked(true)
     } else {
       setTexto(result.data?.message || null)
       setLocked(false)
-      setJustLocked(true) // aparece desde el primero
     }
 
     setLoading(false)
@@ -40,11 +37,7 @@ export default function Naughty() {
 
   useEffect(() => {
     setTexto('Se oye una risa baja…')
-
-    const timer = setTimeout(() => {
-      cargar()
-    }, 1800)
-
+    const timer = setTimeout(cargar, 1800)
     return () => clearTimeout(timer)
   }, [])
 
@@ -53,19 +46,9 @@ export default function Naughty() {
       <h1 className="page-title">Susurro Travieso</h1>
 
       {texto && (
-        <p
-          className={`page-text fade-text ${
-            loading ? 'subtle' : locked ? 'muted' : ''
-          }`}
-        >
+        <p className={`page-text fade-text ${loading ? 'subtle' : locked ? 'muted' : ''}`}>
           {texto}
         </p>
-      )}
-
-      {justLocked && (
-        <button className="back-btn" onClick={() => navigate('/')}>
-          ← Volver
-        </button>
       )}
 
       {!locked && !loading && (
@@ -73,8 +56,13 @@ export default function Naughty() {
           Otro susurro
         </button>
       )}
+
+      <button className="back-btn" onClick={() => navigate('/')}>
+        ← Volver
+      </button>
     </div>
   )
 }
+
 
 
