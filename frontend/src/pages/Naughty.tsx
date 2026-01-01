@@ -21,14 +21,17 @@ export default function Naughty() {
   const playSound = () => {
     if (!audioRef.current) {
       audioRef.current = new Audio('/sonidos/naughty.mp3')
+      audioRef.current.volume = 0.3
     }
     audioRef.current.currentTime = 0
-    audioRef.current.play()
+    audioRef.current.play().catch(() => {})
   }
 
   const stopSound = () => {
-    audioRef.current?.pause()
-    audioRef.current && (audioRef.current.currentTime = 0)
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
   }
 
   const cargar = async () => {
@@ -48,6 +51,9 @@ export default function Naughty() {
       setTexto(result.data?.message || null)
       setLocked(false)
     }
+
+    // sonido se corta cuando el mensaje ya salió
+    setTimeout(stopSound, 1800)
 
     setLoading(false)
   }
@@ -82,6 +88,7 @@ export default function Naughty() {
     </div>
   )
 }
+
 
 
 
