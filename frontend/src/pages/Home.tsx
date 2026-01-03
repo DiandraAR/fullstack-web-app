@@ -10,35 +10,55 @@ export default function Home() {
     audioRef.current = new Audio('/sonidos/duende.mp3')
     audioRef.current.volume = 0.4
 
-    let timeoutAparecer: number
+    let timeoutInicial: number
     let timeoutOcultar: number
+    let timeoutAparecer: number
 
+    const detenerAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+    }
+
+    // Intentos aleatorios con probabilidad
     const intentarMostrar = () => {
-      //probabilidad (30%)
       const probabilidad = Math.random()
 
       if (probabilidad < 0.3) {
         setMostrarDuende(true)
         audioRef.current?.play().catch(() => {})
 
-        
         timeoutOcultar = window.setTimeout(() => {
           setMostrarDuende(false)
+          detenerAudio()
         }, 3000)
       }
 
-      
       const siguiente = Math.random() * (15000 - 7000) + 7000
       timeoutAparecer = window.setTimeout(intentarMostrar, siguiente)
     }
 
-    
-    timeoutAparecer = window.setTimeout(intentarMostrar, 5000)
+    //Aparición inicial obligatoria
+    timeoutInicial = window.setTimeout(() => {
+      setMostrarDuende(true)
+      audioRef.current?.play().catch(() => {})
+
+      //Visible 3s
+      timeoutOcultar = window.setTimeout(() => {
+        setMostrarDuende(false)
+        detenerAudio()
+
+        //Empieza la probabilidad
+        timeoutAparecer = window.setTimeout(intentarMostrar, 7000)
+      }, 3000)
+    }, 3000)
 
     return () => {
-      clearTimeout(timeoutAparecer)
+      clearTimeout(timeoutInicial)
       clearTimeout(timeoutOcultar)
-      audioRef.current?.pause()
+      clearTimeout(timeoutAparecer)
+      detenerAudio()
     }
   }, [])
 
@@ -55,9 +75,7 @@ export default function Home() {
           />
         )}
 
-        <p className="home-subtitle">
-          It's lucky season
-        </p>
+        <p className="home-subtitle">It's lucky season</p>
       </div>
 
       <div className="home-buttons">
@@ -68,6 +86,11 @@ export default function Home() {
     </div>
   )
 }
+
+
+
+
+
 
 
 
