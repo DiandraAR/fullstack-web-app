@@ -52,7 +52,7 @@ export default function Home() {
         //Empieza la probabilidad
         timeoutAparecer = window.setTimeout(intentarMostrar, 7000)
       }, 3000)
-    }, 3000)
+    }, 6000)
 
     return () => {
       clearTimeout(timeoutInicial)
